@@ -1,0 +1,31 @@
+{
+	"build-app": {
+		"build-time-render": {
+			"root": "root"
+		},
+		"pwa": {
+			"manifest": {
+				"name": "dojo.io",
+				"short_name": "dojo.io",
+				"description": "dojo.io",
+				"background_color": "#ffffff",
+				"theme_color": "#222127",
+				"icons": [
+					{
+						"src": "src/favicon.ico",
+						"sizes": [
+							128,
+							256,
+							512
+						]
+					}
+				]
+			},
+			"serviceWorker": {
+				"clientsClaim": true
+			}
+		}
+	},
+	"test-intern": {},
+	"create-app": {}
+}
