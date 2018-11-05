@@ -76,11 +76,13 @@ function registerHandlers(types) {
 	}, {})
 }
 
+const registeredHandlers = registerHandlers(handlers);
+
 const fromMarkdown = (content) => {
 	const pipeline = unified()
 		.use(parse)
 		.use(macro.transformer)
-		.use(remark2rehype, { handlers: registerHandlers(handlers) })
+		.use(remark2rehype, { handlers: registeredHandlers })
 		.use(rehypePrism, { ignoreMissing: true });
 
 	const nodes = pipeline.parse(content);

@@ -1,4 +1,4 @@
-# Hello World
+# Sample Tutorial
 
 ## Metadata
 [Metadata overview="Learn how to create and style custom widgets in Dojo.", topic="widgets"]
