@@ -12,7 +12,7 @@ export default class Documentation extends WidgetBase {
 		if (this._cache[path]) {
 			return this._cache[path];
 		}
-		import(/* webpackChunkName: "[request]" */ `./../generated/${path}`).then((module) => {
+		import(`./../generated/${path}`).then((module) => {
 			this._cache[path] = module.default();
 			this.invalidate();
 		});
@@ -23,7 +23,7 @@ export default class Documentation extends WidgetBase {
 			<div classes={[css.root]}>
 				{ list.map(({ name, path }) => (
 					<div key="name">
-						<Link to='tutorial' params={ { tutorial: path } } activeClasses={['active']}>
+						<Link key={ name } to='tutorial' params={ { tutorial: path } } activeClasses={['active']}>
 							{ name }
 						</Link>
 					</div>

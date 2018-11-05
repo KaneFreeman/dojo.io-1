@@ -39,8 +39,11 @@ const widgets = {
 	}
 }
 
+let key = 0;
+
 const pragma = (...args) => {
-	const [ tag, props, children ] = args;
+	const [ tag, props = {}, children ] = args;
+	props.key = `compiled-${key}`;
 	if (tag.substr(0, 1) === tag.substr(0, 1).toUpperCase()) {
 		const type = `docs-${tag.toLowerCase()}`;
 		if (widgets[type]) {
