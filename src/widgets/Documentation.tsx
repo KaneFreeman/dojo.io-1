@@ -12,7 +12,7 @@ export default class Documentation extends WidgetBase {
 		if (this._cache[path]) {
 			return this._cache[path];
 		}
-		import(`./../generated/${path}`).then((module) => {
+		import(/* webpackChunkName: "[request]" */ `./../generated/${path}`).then((module) => {
 			this._cache[path] = module.default();
 			this.invalidate();
 		});
