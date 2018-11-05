@@ -2,6 +2,9 @@ import renderer from '@dojo/framework/widget-core/vdom';
 import Registry from '@dojo/framework/widget-core/Registry';
 import { tsx } from '@dojo/framework/widget-core/tsx';
 import { registerRouterInjector } from '@dojo/framework/routing/RouterInjector';
+import has from '@dojo/framework/has/has';
+import { HashHistory } from '@dojo/framework/routing/history/HashHistory';
+import { StateHistory } from '@dojo/framework/routing/history/StateHistory';
 
 import routes from './routes';
 import App from './App';
@@ -14,7 +17,10 @@ import Aside from './widgets/Aside';
 import Metadata from './widgets/Metadata';
 
 const registry = new Registry();
-registerRouterInjector(routes, registry);
+
+registerRouterInjector(routes, registry, {
+	HistoryManager: has('build-time-render') ? HashHistory : StateHistory
+});
 
 registry.define('docs-aside', Aside);
 registry.define('docs-codeblock', CodeBlock);
