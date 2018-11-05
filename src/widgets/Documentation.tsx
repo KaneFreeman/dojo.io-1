@@ -11,9 +11,9 @@ export default class Documentation extends WidgetBase {
 	protected render() {
 		return (
 			<div classes={[css.root]}>
-				{ list.map((tutorial) => (
-					<Link to='tutorial' params={ { tutorial } } activeClasses={['active']}>
-						{ tutorial }
+				{ list.map(({ name, path }) => (
+					<Link to='tutorial' params={ { tutorial: path } } activeClasses={['active']}>
+						{ name }
 					</Link>
 				)) }
 				<Outlet id="tutorial" renderer={({ params }) => {

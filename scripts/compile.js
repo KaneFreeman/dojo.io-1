@@ -89,7 +89,7 @@ const fromMarkdown = (content) => {
 }
 
 
-manifest.paths.map((path) => {
+manifest.tutorials.map(({ path }) => {
 	const outputPath = path.replace(/\.md$/, '.ts');
 	path = fsPath.resolve(__dirname, '../', 'content', path);
 	const content = fs.readFileSync(path, 'utf-8');
@@ -97,5 +97,5 @@ manifest.paths.map((path) => {
 	fs.outputFileSync(fsPath.resolve('src', 'generated', outputPath), `export default () => { return ${JSON.stringify(nodes)} }`)
 });
 
-const paths = manifest.paths.map((path) => fsPath.parse(path).name);
+const paths = manifest.tutorials.map(({ name, path }) => ({ name, path: fsPath.parse(path).name }));
 fs.outputFileSync(fsPath.resolve('src', 'generated', 'list.ts'), `export default ${JSON.stringify(paths)};`)

@@ -1,5 +1,5 @@
 {
-	"paths": [
-		"./sample-tutorial.md"
+	"tutorials": [
+		{ "name": "Sample Tutorial", "path": "./sample-tutorial.md" }
 	]
 }
