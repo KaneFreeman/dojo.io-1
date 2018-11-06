@@ -13,12 +13,17 @@ interface CodeSandboxProperties {
 }
 
 export default class CodeSandbox extends WidgetBase<CodeSandboxProperties> {
+	private _src = "";
+
 	render() {
 		const { url } = this.properties;
 		const { isIntersecting } = this.meta(Intersection).get('root');
+		if (isIntersecting) {
+			this._src = `${url}?autoresize=1&hidenavigation=1`;
+		}
 		return (
 			<div key='root' styles={ CodeSandboxStyles }>
-				{ (isIntersecting ? <iframe styles={ CodeSandboxStyles } src={ `${url}?autoresize=1&hidenavigation=1` }></iframe> : null) }
+				<iframe styles={ CodeSandboxStyles } src={ this._src }></iframe>
 			</div>
 		);
 	}

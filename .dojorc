@@ -1,8 +1,5 @@
 {
 	"build-app": {
-		"build-time-render": {
-			"root": "root"
-		},
 		"pwa": {
 			"manifest": {
 				"name": "dojo.io",
@@ -22,7 +19,17 @@
 				]
 			},
 			"serviceWorker": {
-				"clientsClaim": true
+				"clientsClaim": true,
+				"routes": [
+					{
+						"urlPattern": "https://fonts.googleapis.com/css",
+						"strategy": "networkFirst"
+					},
+					{
+						"urlPattern": "https://fonts.gstatic.com/s/montserrat/v12",
+						"strategy": "networkFirst"
+					}
+				]
 			}
 		}
 	},

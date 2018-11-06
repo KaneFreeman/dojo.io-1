@@ -39,8 +39,11 @@ const widgets = {
 	}
 }
 
+let key = 0;
+
 const pragma = (...args) => {
-	const [ tag, props, children ] = args;
+	const [ tag, props = {}, children ] = args;
+	props.key = `compiled-${key}`;
 	if (tag.substr(0, 1) === tag.substr(0, 1).toUpperCase()) {
 		const type = `docs-${tag.toLowerCase()}`;
 		if (widgets[type]) {
@@ -76,11 +79,13 @@ function registerHandlers(types) {
 	}, {})
 }
 
+const registeredHandlers = registerHandlers(handlers);
+
 const fromMarkdown = (content) => {
 	const pipeline = unified()
 		.use(parse)
 		.use(macro.transformer)
-		.use(remark2rehype, { handlers: registerHandlers(handlers) })
+		.use(remark2rehype, { handlers: registeredHandlers })
 		.use(rehypePrism, { ignoreMissing: true });
 
 	const nodes = pipeline.parse(content);
@@ -88,10 +93,14 @@ const fromMarkdown = (content) => {
 	return toH(pragma, result);
 }
 
-manifest.paths.map((path) => {
+
+manifest.tutorials.map(({ path }) => {
 	const outputPath = path.replace(/\.md$/, '.ts');
 	path = fsPath.resolve(__dirname, '../', 'content', path);
 	const content = fs.readFileSync(path, 'utf-8');
 	const nodes = fromMarkdown(content);
 	fs.outputFileSync(fsPath.resolve('src', 'generated', outputPath), `export default () => { return ${JSON.stringify(nodes)} }`)
-})
+});
+
+const paths = manifest.tutorials.map(({ name, path }) => ({ name, path: fsPath.parse(path).name }));
+fs.outputFileSync(fsPath.resolve('src', 'generated', 'list.ts'), `export default ${JSON.stringify(paths)};`)
