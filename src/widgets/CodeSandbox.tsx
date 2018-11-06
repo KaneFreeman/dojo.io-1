@@ -1,6 +1,7 @@
 import WidgetBase from '@dojo/framework/widget-core/WidgetBase';
 import { tsx } from '@dojo/framework/widget-core/tsx';
 import Intersection from '@dojo/framework/widget-core/meta/Intersection';
+import has from '@dojo/framework/has/has';
 
 const CodeSandboxStyles = {
 	'border': 'none',
@@ -17,8 +18,12 @@ export default class CodeSandbox extends WidgetBase<CodeSandboxProperties> {
 
 	render() {
 		const { url } = this.properties;
-		const { isIntersecting } = this.meta(Intersection).get('root');
-		if (isIntersecting) {
+		if (!has('build-time-render')) {
+			const { isIntersecting } = this.meta(Intersection).get('root');
+			if (isIntersecting) {
+				this._src = `${url}?autoresize=1&hidenavigation=1`;
+			}
+		} else {
 			this._src = `${url}?autoresize=1&hidenavigation=1`;
 		}
 		return (

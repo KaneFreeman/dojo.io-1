@@ -10,14 +10,16 @@
     "watch": "npm-run-all build:content --parallel watch:**"
   },
   "dependencies": {
-    "@dojo/framework": "^4.0.0",
+    "@dojo/framework": "file:./deps/dojo-framework-4.0.5.tgz",
     "@dojo/themes": "^4.0.0",
     "@dojo/widgets": "^4.0.0",
+    "fs-extra": "^7.0.0",
     "tslib": "~1.8.1"
   },
   "devDependencies": {
-    "@dojo/cli-build-app": "^4.0.0",
+    "@dojo/cli-build-app": "file:./deps/dojo-cli-build-app-4.0.5.tgz",
     "@dojo/cli-test-intern": "^4.0.0",
+    "@dojo/webpack-contrib": "file:./deps/dojo-webpack-contrib-4.0.5.tgz",
     "@mapbox/rehype-prism": "^0.3.0",
     "@types/node": "~9.6.5",
     "chokidar-cli": "^1.2.1",
